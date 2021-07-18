@@ -22,9 +22,15 @@ public class BoardServiceImpl implements BoardService{
 		board.setContent(content);
 		dao.insertBoard(board);
 	}
-	
+	@Override
+	public BoardDto read(int id) throws Exception {
+		return dao.getBoardById(id);
+	}
+	@Override
 	public List<BoardDto> boardList(){
 		return dao.getAllBoard();
 	}
 	
+	
+		
 }

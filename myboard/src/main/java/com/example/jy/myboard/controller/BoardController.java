@@ -1,6 +1,8 @@
 package com.example.jy.myboard.controller;
 
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,8 +10,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.jy.myboard.dao.BoardDao;
+import com.example.jy.myboard.dto.BoardDto;
 import com.example.jy.myboard.service.BoardServiceImpl;
 
 
@@ -40,10 +44,18 @@ public class BoardController {
 	}
 	
 	@GetMapping(path="/list")
-	public String list(Model model){
+	public String list(Model model) throws Exception{
 		model.addAttribute("list",service.boardList());
 		return "listview";
 	}
+	
+	
+	@GetMapping(path="/readview")
+	public String read(@RequestParam("boardId")int boardId,Model model) throws Exception{
+		model.addAttribute("read",service.read(boardId));
+		return "readview";
+	}
+
 	
 	
 }

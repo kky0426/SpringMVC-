@@ -1,5 +1,6 @@
 package com.example.jy.myboard.dao;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,4 +40,17 @@ public class BoardDao {
 		});
 	}
 	
+	public BoardDto getBoardById(int id) throws Exception{
+		String query = "SELECT board_id,title,writer_name,content,date FROM board WHERE board_id=?";
+		return jdbcTemplate.queryForObject(query,(result,rowNum)->{
+			BoardDto board = new BoardDto();
+			board.setBoardId(result.getInt("board_id"));
+			board.setTitle(result.getString("title"));
+			board.setContent(result.getString("content"));
+			board.setWriterName(result.getString("writer_name"));
+			board.setDate(result.getDate("date"));
+			return board;
+		},id);
+	}
+		
 }
