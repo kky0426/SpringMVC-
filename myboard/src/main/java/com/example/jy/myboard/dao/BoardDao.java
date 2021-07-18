@@ -1,6 +1,7 @@
 package com.example.jy.myboard.dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,19 @@ public class BoardDao {
 				board.getTitle(),
 				board.getWriterName(),
 				board.getContent());
+	}
+	
+	public List<BoardDto> getAllBoard(){
+		String query = "SELECT board_id,title,writer_name,content,date FROM board ORDER BY board_id DESC";
+		return jdbcTemplate.query(query, (result,rowNum)->{
+			BoardDto board = new BoardDto();
+			board.setBoardId(result.getInt("board_id"));
+			board.setTitle(result.getString("title"));
+			board.setContent(result.getString("content"));
+			board.setWriterName(result.getString("writer_name"));
+			board.setDate(result.getDate("date"));
+			return board;
+		});
 	}
 	
 }

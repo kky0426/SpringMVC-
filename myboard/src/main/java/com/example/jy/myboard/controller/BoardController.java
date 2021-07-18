@@ -3,6 +3,7 @@ package com.example.jy.myboard.controller;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +37,12 @@ public class BoardController {
 				System.out.println(e);
 			}
 		return "redirect:/";
+	}
+	
+	@GetMapping(path="/list")
+	public String list(Model model){
+		model.addAttribute("list",service.boardList());
+		return "listview";
 	}
 	
 	
