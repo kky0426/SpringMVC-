@@ -4,7 +4,32 @@
 <html>
 	<head>
 	 	<title>게시판</title>
+	 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	</head>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		var formObj = $("form[name='readForm']")
+		
+		$(".update_btn").on('click',function(){
+			formObj.attr("action","updateview");
+			formObj.attr("method","get");
+			formObj.submit();
+		})
+		
+		$(".delete_btn").on("click",function(){
+			formObj.attr("action","delete");
+			formObj.attr("mothod","post");
+			formObj.submit();
+		})
+		
+		$(".list_btn").on("click",function(){
+			event.preventDefault();
+			location.href="list";
+			
+		})
+	})
+</script>
+	
 	<body>
 	
 		<div id="root">
@@ -14,12 +39,13 @@
 			<hr />
 			 
 			<nav>
-			  홈 - 글 작성
+			  홈 - 글 상세
 			</nav>
+			<button></button>
 			<hr />
 			
 			<section id="container">
-				<form role="form" method="post">
+				<form name="readForm" role="form" method="post">
 					<table>
 						<tbody>
 							<tr>
@@ -44,12 +70,17 @@
 							</tr>
 							<tr>
 								<td>
-									<label for="regdate">작성날짜</label>
+									<label for="date">작성날짜</label>
 									<fmt:formatDate value="${read.date}" pattern="yyyy-MM-dd"/>					
 								</td>
 							</tr>		
 						</tbody>			
 					</table>
+					<div>
+						<button type="submit" class="update_btn">수정</button>
+						<button type="submit" class="delete_btn">삭제</button>
+						<button type="submit" class="list_btn">목록</button>
+					</div>
 				</form>
 			</section>
 			<hr />

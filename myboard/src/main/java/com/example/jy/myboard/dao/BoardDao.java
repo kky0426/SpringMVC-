@@ -52,5 +52,15 @@ public class BoardDao {
 			return board;
 		},id);
 	}
+	
+	public int deleteBoard(int id) throws Exception{
+		String query = "DELETE FROM board WHERE board_id=?";
+		return jdbcTemplate.update(query,id);
+	}
+	
+	public int updateBoard(BoardDto board) throws Exception{
+		String query = "UPDATE board SET title=?,content=? WHERE board_id=?";
+		return jdbcTemplate.update(query,board.getTitle(),board.getContent(),board.getBoardId());
+	}
 		
 }

@@ -55,7 +55,23 @@ public class BoardController {
 		model.addAttribute("read",service.read(boardId));
 		return "readview";
 	}
-
 	
+	@PostMapping(path="/update")
+	public String update(BoardDto board) throws Exception {	
+		service.update(board);
+		return "redirect:/list";
+	}
+	
+	@GetMapping(path="/updateview")
+	public String updateView(BoardDto board,Model model) {
+		model.addAttribute("update",board);
+		return "updateview";
+	}
+
+	@PostMapping(path="/delete")
+	public String delete(BoardDto board) throws Exception{
+		service.delete(board.getBoardId());
+		return "redirect:/list";
+	}
 	
 }

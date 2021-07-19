@@ -11,4 +11,8 @@ public interface BoardService {
 	public List<BoardDto> boardList();
 	
 	public BoardDto read(int id) throws Exception;
+	
+	public int update(BoardDto board) throws Exception;
+	
+	public int delete(int id) throws Exception;
 }

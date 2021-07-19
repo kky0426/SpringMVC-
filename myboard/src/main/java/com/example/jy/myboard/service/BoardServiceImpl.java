@@ -31,6 +31,16 @@ public class BoardServiceImpl implements BoardService{
 		return dao.getAllBoard();
 	}
 	
+	@Override
+	public int update(BoardDto board) throws Exception {
+		return dao.updateBoard(board);
+	}
+	
+	@Override
+	public int delete(int id) throws Exception{
+		return dao.deleteBoard(id);
+	}
+	
 	
 		
 }

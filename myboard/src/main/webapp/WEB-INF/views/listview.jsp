@@ -13,12 +13,13 @@
 			<hr />
 			 
 			<nav>
-			  홈 - 글 작성
+			  홈 - 글 목록
+			  <button type="botton" onclick="location.href='writeview'">글 작성</button>
 			</nav>
 			<hr />
 			
 			<section id="container">
-				<form role="form" method="post" action="/write">
+				<form role="form" method="post" action="write">
 					<table>
 						<tr><th>번호</th><th>제목</th><th>작성자</th><th>등록일</th></tr>
 						
