@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.example.jy.myboard.dto.BoardDto;
+import com.example.jy.myboard.dto.PageDto;
 
 
 @Repository
@@ -28,7 +29,7 @@ public class BoardDao {
 	}
 	
 	public List<BoardDto> getAllBoard(){
-		String query = "SELECT board_id,title,writer_name,content,date FROM board ORDER BY board_id DESC";
+		String query = "SELECT board_id,title,content,writer_name,date FROM board ORDER BY board_id DESC";
 		return jdbcTemplate.query(query, (result,rowNum)->{
 			BoardDto board = new BoardDto();
 			board.setBoardId(result.getInt("board_id"));
@@ -62,5 +63,23 @@ public class BoardDao {
 		String query = "UPDATE board SET title=?,content=? WHERE board_id=?";
 		return jdbcTemplate.update(query,board.getTitle(),board.getContent(),board.getBoardId());
 	}
-		
+	
+	public List<BoardDto> getBoardPage(PageDto page) throws Exception{
+		String query="SELECT board_id,title,writer_name,content,date FROM board "
+				+ "ORDER BY board_id DESC LIMIT ?,?";
+		return jdbcTemplate.query(query, (result,rowNum)->{
+			BoardDto board = new BoardDto();
+			board.setBoardId(result.getInt("board_id"));
+			board.setTitle(result.getString("title"));
+			board.setContent(result.getString("content"));
+			board.setWriterName(result.getString("writer_name"));
+			board.setDate(result.getDate("date"));
+			return board;
+		},page.getRowS(),page.getOffset());
+	}
+	
+	public int boardCount() throws Exception {
+		String query="SELECT COUNT(board_id) FROM board WHERE board_id>0";
+		return jdbcTemplate.queryForObject(query,Integer.class);	
+	}
 }

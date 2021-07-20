@@ -8,7 +8,7 @@
 	</head>
 	<script type="text/javascript">
 	$(document).ready(function(){
-		var formObj = $("form[name='readForm']")
+		var formObj = $("form[name='readForm']");
 		
 		$(".update_btn").on('click',function(){
 			formObj.attr("action","updateview");
@@ -17,9 +17,13 @@
 		})
 		
 		$(".delete_btn").on("click",function(){
-			formObj.attr("action","delete");
-			formObj.attr("mothod","post");
-			formObj.submit();
+			var deleteCheck = confirm("삭제하시겠습니까?");
+			if(deleteCheck == true){
+				formObj.attr("action","delete");
+				formObj.attr("mothod","post");
+				formObj.submit();
+			}
+		
 		})
 		
 		$(".list_btn").on("click",function(){
@@ -78,7 +82,7 @@
 					</table>
 					<div>
 						<button type="submit" class="update_btn">수정</button>
-						<button type="submit" class="delete_btn">삭제</button>
+						<button type="button" class="delete_btn">삭제</button>
 						<button type="submit" class="list_btn">목록</button>
 					</div>
 				</form>

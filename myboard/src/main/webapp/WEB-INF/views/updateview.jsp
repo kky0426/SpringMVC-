@@ -11,12 +11,34 @@
 <title>게시판</title>
 </head>
 <script type="text/javascript">
-	$(document).read(function(){
+	$(document).ready(function(){
+		
+		var formObj = $("form[name='updateForm']");
 		$(".cancel_btn").on("click",function(){
 			event.preventDefault();
 			location.href="list";
 		})
+		
+		$(".update_btn").on("click",function(){
+			if(fn_valiChk()){
+				return false;
+			}
+			formObj.attr("action","update");
+			formObj.attr("method","post");
+			formObj.submit();
+		})
+		
 	})
+	
+	function fn_valiChk(){
+		var updateForm = $("form[name='updateForm'] .chk").length;
+		for(var i = 0; i<updateForm; i++){
+			if($(".chk").eq(i).val() == "" || $(".chk").eq(i).val() == null){
+				alert($(".chk").eq(i).attr("title"));
+				return true;
+			}
+		}
+	}
 </script>
 <body>
 	<div id="root">
@@ -29,31 +51,31 @@
 		<hr/>
 		
 		<section id="contaner">
-			<form name="updateForm" role="form" method="post" action="update">
+			<form name="updateForm">
 				<input type="hidden" name="boardId" value="${update.boardId}" readonly="readonly"/>
 				<table>
 					<tbody>
 						<tr>
 							<td>
-								<label for="title">제목</label><input type = "text" id='title' name = "title" , value="${update.title}"/>
+								<label for="title">제목</label><input type = "text" id='title' name = "title"  value="${update.title}" class="chk" title="제목을 입력하세요"/>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<label for="content">내용</label><input type = "text" id='content' name = "content" , value="${update.content}"/>
+								<label for="content">내용</label><input type = "text" id='content' name = "content"  value="${update.content}" class="chk" title="내용을 입력하세요"/>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<label for="writerName">작성자</label><input type = "text" id='writerName' name = "writerName" , value="${update.writerName}"/>
+								<label for="writerName">작성자</label><input type = "text" id='writerName' name = "writerName"  value="${update.writerName}" class="chk" title="이름을 입려하세요"/>
 							</td>
 						</tr>
 					
 					</tbody>
 				</table>
 				<div>
-					<button type="submit" class="update_btn">저장</button>
-					<button type="submit" class="cancel_btn">취소</button>
+					<button type="button" class="update_btn">저장</button>
+					<button type="button" class="cancel_btn">취소</button>
 				</div>
 			</form>
 		</section>

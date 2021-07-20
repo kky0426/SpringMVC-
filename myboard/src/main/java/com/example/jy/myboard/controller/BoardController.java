@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.jy.myboard.dao.BoardDao;
 import com.example.jy.myboard.dto.BoardDto;
+import com.example.jy.myboard.dto.PageDto;
+import com.example.jy.myboard.dto.PageMaker;
 import com.example.jy.myboard.service.BoardServiceImpl;
 
 
@@ -44,8 +46,12 @@ public class BoardController {
 	}
 	
 	@GetMapping(path="/list")
-	public String list(Model model) throws Exception{
-		model.addAttribute("list",service.boardList());
+	public String list(Model model,PageDto page) throws Exception{
+		model.addAttribute("list",service.boardList(page));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setPage(page);
+		pageMaker.setTotalCount(service.count());
+		model.addAttribute("pageMaker",pageMaker);
 		return "listview";
 	}
 	

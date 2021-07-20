@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.jy.myboard.dto.BoardDto;
+import com.example.jy.myboard.dto.PageDto;
 import com.example.jy.myboard.dao.BoardDao;
 
 @Service
@@ -27,8 +28,8 @@ public class BoardServiceImpl implements BoardService{
 		return dao.getBoardById(id);
 	}
 	@Override
-	public List<BoardDto> boardList(){
-		return dao.getAllBoard();
+	public List<BoardDto> boardList(PageDto page) throws Exception{
+		return dao.getBoardPage(page);
 	}
 	
 	@Override
@@ -39,6 +40,10 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int delete(int id) throws Exception{
 		return dao.deleteBoard(id);
+	}
+	@Override
+	public int count() throws Exception {
+		return dao.boardCount();
 	}
 	
 	
