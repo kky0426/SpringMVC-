@@ -1,21 +1,23 @@
 package com.example.jy.myboard.controller;
 
 
-import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import com.example.jy.myboard.dao.BoardDao;
 import com.example.jy.myboard.dto.BoardDto;
-import com.example.jy.myboard.dto.PageDto;
+
 import com.example.jy.myboard.dto.PageMaker;
+import com.example.jy.myboard.dto.SearchPageDto;
 import com.example.jy.myboard.service.BoardServiceImpl;
 
 
@@ -25,8 +27,6 @@ public class BoardController {
 	@Autowired
 	BoardServiceImpl service;
 	
-	@Autowired
-	BoardDao dao;
 	
 	@GetMapping(path="/writeview")
 	public String writeForm() {
@@ -46,11 +46,11 @@ public class BoardController {
 	}
 	
 	@GetMapping(path="/list")
-	public String list(Model model,PageDto page) throws Exception{
+	public String list(Model model,@ModelAttribute("searchPage")SearchPageDto page) throws Exception{
 		model.addAttribute("list",service.boardList(page));
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setPage(page);
-		pageMaker.setTotalCount(service.count());
+		pageMaker.setTotalCount(service.count(page));
 		model.addAttribute("pageMaker",pageMaker);
 		return "listview";
 	}

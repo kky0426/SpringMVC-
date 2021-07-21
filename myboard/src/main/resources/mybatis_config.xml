@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+	<settings>
+ 		<setting name="jdbcTypeForNull" value="NULL"/>
+ 		<setting name="defaultFetchSize" value="100"/>
+ 	</settings>
+ 	<typeAliases>
+ 		<typeAlias alias="BoardDto" type="com.example.jy.myboard.dto.BoardDto"/>
+ 		<typeAlias alias="PageDto" type="com.example.jy.myboard.dto.PageDto"/>
+ 		<typeAlias alias="SearchPageDto" type="com.example.jy.myboard.dto.SearchPageDto"/>		
+ 	</typeAliases>
+ 	
+ 	<mappers>
+ 		<mapper resource="boardMapper.xml"/>
+ 	</mappers>
+</configuration>

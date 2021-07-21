@@ -1,85 +1,25 @@
 package com.example.jy.myboard.dao;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.example.jy.myboard.dto.BoardDto;
-import com.example.jy.myboard.dto.PageDto;
-
+import com.example.jy.myboard.dto.SearchPageDto;
 
 @Repository
-public class BoardDao {
-
-	@Autowired
-	JdbcTemplate jdbcTemplate;
+public interface BoardDao {
+	int insertBoard(BoardDto board);
 	
-	public int insertBoard(BoardDto board) throws Exception {
-		String query = "INSERT INTO board (title,writer_name,content)"
-				+ "VALUES(?,?,?)";
-		return jdbcTemplate.update(query,
-				board.getTitle(),
-				board.getWriterName(),
-				board.getContent());
-	}
+	int updateBoard(BoardDto board);
 	
-	public List<BoardDto> getAllBoard(){
-		String query = "SELECT board_id,title,content,writer_name,date FROM board ORDER BY board_id DESC";
-		return jdbcTemplate.query(query, (result,rowNum)->{
-			BoardDto board = new BoardDto();
-			board.setBoardId(result.getInt("board_id"));
-			board.setTitle(result.getString("title"));
-			board.setContent(result.getString("content"));
-			board.setWriterName(result.getString("writer_name"));
-			board.setDate(result.getDate("date"));
-			return board;
-		});
-	}
+	int deleteBoard(int boardId);
 	
-	public BoardDto getBoardById(int id) throws Exception{
-		String query = "SELECT board_id,title,writer_name,content,date FROM board WHERE board_id=?";
-		return jdbcTemplate.queryForObject(query,(result,rowNum)->{
-			BoardDto board = new BoardDto();
-			board.setBoardId(result.getInt("board_id"));
-			board.setTitle(result.getString("title"));
-			board.setContent(result.getString("content"));
-			board.setWriterName(result.getString("writer_name"));
-			board.setDate(result.getDate("date"));
-			return board;
-		},id);
-	}
+	int boardCount(SearchPageDto page);
 	
-	public int deleteBoard(int id) throws Exception{
-		String query = "DELETE FROM board WHERE board_id=?";
-		return jdbcTemplate.update(query,id);
-	}
+	BoardDto getBoardById(int boardId);
 	
-	public int updateBoard(BoardDto board) throws Exception{
-		String query = "UPDATE board SET title=?,content=? WHERE board_id=?";
-		return jdbcTemplate.update(query,board.getTitle(),board.getContent(),board.getBoardId());
-	}
+	List<BoardDto> getBoardPage(SearchPageDto page);
 	
-	public List<BoardDto> getBoardPage(PageDto page) throws Exception{
-		String query="SELECT board_id,title,writer_name,content,date FROM board "
-				+ "ORDER BY board_id DESC LIMIT ?,?";
-		return jdbcTemplate.query(query, (result,rowNum)->{
-			BoardDto board = new BoardDto();
-			board.setBoardId(result.getInt("board_id"));
-			board.setTitle(result.getString("title"));
-			board.setContent(result.getString("content"));
-			board.setWriterName(result.getString("writer_name"));
-			board.setDate(result.getDate("date"));
-			return board;
-		},page.getRowS(),page.getOffset());
-	}
 	
-	public int boardCount() throws Exception {
-		String query="SELECT COUNT(board_id) FROM board WHERE board_id>0";
-		return jdbcTemplate.queryForObject(query,Integer.class);	
-	}
 }

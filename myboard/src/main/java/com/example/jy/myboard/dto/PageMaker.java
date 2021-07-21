@@ -1,5 +1,8 @@
 package com.example.jy.myboard.dto;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -68,5 +71,26 @@ public class PageMaker {
 									.queryParam("offset",page.getOffset())
 									.build();
 		return uriComponents.toString();
+	}
+	
+	public String makeSearch(int pageNum) {
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+									.queryParam("page", pageNum)
+									.queryParam("offset", page.getOffset())
+									.queryParam("feild",((SearchPageDto)page).getFeild())
+									.queryParam("keyword", encoding(((SearchPageDto)page).getKeyword()))
+									.build();
+		return uriComponents.toString();
+	}
+	
+	private String encoding(String keyword) {
+		if(keyword==null || keyword.trim().length()==0) {
+			return "";
+		}
+		try {
+			return URLEncoder.encode(keyword,"UTF-8");
+		}catch(UnsupportedEncodingException e) {
+			return "";
+		}
 	}
 }

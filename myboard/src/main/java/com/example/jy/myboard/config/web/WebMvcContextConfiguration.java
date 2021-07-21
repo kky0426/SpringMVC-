@@ -1,4 +1,4 @@
-package com.example.jy.myboard.config;
+package com.example.jy.myboard.config.web;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
