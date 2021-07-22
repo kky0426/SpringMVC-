@@ -16,7 +16,11 @@
 		var formObj = $("form[name='updateForm']");
 		$(".cancel_btn").on("click",function(){
 			event.preventDefault();
-			location.href="list";
+			location.href="readview?boardId=${update.boardId}"
+					+"&page=${searchPage.page}"
+					+"&offset=${searchPage.offset}"
+					+"&feild=${searchPage.feild}"
+					+"&keyword=${searchPage.keyword}";
 		})
 		
 		$(".update_btn").on("click",function(){

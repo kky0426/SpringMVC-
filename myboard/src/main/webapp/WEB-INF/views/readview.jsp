@@ -28,8 +28,10 @@
 		
 		$(".list_btn").on("click",function(){
 			event.preventDefault();
-			location.href="list";
-			
+			location.href="list?page=${searchPage.page}"
+						+"&offset=${searchPage.offset}"
+						+"&feild=${searchPage.feild}"
+						+"&keyword=${searchPage.keyword}";
 		})
 	})
 </script>
@@ -50,6 +52,11 @@
 			
 			<section id="container">
 				<form name="readForm" role="form" method="post">
+					<input type="hidden" id="boardId" name="boardId" value="${read.boardId}"/>
+					<input type="hidden" id="page" name="page" value="${searchPage.page}"/>
+					<input type="hidden" id="offset" name="offset" value="${searchPage.offset}"/>
+					<input type="hidden" id="feild"  name="feild" value="${searchPage.feild}"/>
+					<input type="hidden" id="keyword" name="keyword" value="${searchPage.keyword}"/>
 					<table>
 						<tbody>
 							<tr>
@@ -81,9 +88,9 @@
 						</tbody>			
 					</table>
 					<div>
-						<button type="submit" class="update_btn">수정</button>
+						<button type="button" class="update_btn">수정</button>
 						<button type="button" class="delete_btn">삭제</button>
-						<button type="submit" class="list_btn">목록</button>
+						<button type="button" class="list_btn">목록</button>
 					</div>
 				</form>
 			</section>

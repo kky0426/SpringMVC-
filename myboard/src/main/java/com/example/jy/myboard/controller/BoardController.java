@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.jy.myboard.dao.BoardDao;
 import com.example.jy.myboard.dto.BoardDto;
@@ -57,26 +57,36 @@ public class BoardController {
 	
 	
 	@GetMapping(path="/readview")
-	public String read(@RequestParam("boardId")int boardId,Model model) throws Exception{
-		model.addAttribute("read",service.read(boardId));
+	public String read(BoardDto board,@ModelAttribute("searchPage")SearchPageDto page,Model model) throws Exception{
+		model.addAttribute("read",service.read(board.getBoardId()));
+		model.addAttribute("searchPage",page);
 		return "readview";
 	}
 	
 	@PostMapping(path="/update")
-	public String update(BoardDto board) throws Exception {	
+	public String update(BoardDto board,@ModelAttribute("searchPage")SearchPageDto page,RedirectAttributes redi) throws Exception {	
 		service.update(board);
+		redi.addAttribute("page",page.getPage());
+		redi.addAttribute("offset",page.getOffset());
+		redi.addAttribute("feild",page.getFeild());
+		redi.addAttribute("keyword",page.getKeyword());
 		return "redirect:/list";
 	}
 	
 	@GetMapping(path="/updateview")
-	public String updateView(BoardDto board,Model model) {
+	public String updateView(BoardDto board,Model model,@ModelAttribute("searchPage")SearchPageDto page) {
 		model.addAttribute("update",board);
+		model.addAttribute("searchPage",page);
 		return "updateview";
 	}
 
 	@PostMapping(path="/delete")
-	public String delete(BoardDto board) throws Exception{
+	public String delete(BoardDto board,@ModelAttribute("searchPage")SearchPageDto page,RedirectAttributes redi) throws Exception{
 		service.delete(board.getBoardId());
+		redi.addAttribute("page",page.getPage());
+		redi.addAttribute("offset",page.getOffset());
+		redi.addAttribute("feild",page.getFeild());
+		redi.addAttribute("keyword",page.getKeyword());
 		return "redirect:/list";
 	}
 	

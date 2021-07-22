@@ -33,7 +33,12 @@
 							<tr>
 								<td><c:out value="${list.boardId}" /></td>
 								<td>
-									<a href="readview?boardId=${list.boardId}"><c:out value="${list.title}" /></a>
+									<a href="readview?boardId=${list.boardId}&
+															page=${searchPage.page}&
+															offset=${searchPage.offset}&
+															feild=${searchPage.feild}&
+															keyword=${searchPage.keyword}">
+															<c:out value="${list.title}" /></a>
 								</td>
 								<td><c:out value="${list.writerName}" /></td>
 								<td><fmt:formatDate value="${list.date}" pattern="yyyy-MM-dd"/></td>
@@ -51,11 +56,7 @@
 						</select>
 						<input type="text" name="keyword" id="keywordInput" value="${page.keyword}"/>
 						<button id="searchButton" type="submit">검색</button>
-						<script type="text/javascript">
-							$(#searchButton).click(function(){
-								self.location = "list" + 'saf' + "&feild=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
-							});
-						</script>
+				
 					</div>
 					
 					<div>
