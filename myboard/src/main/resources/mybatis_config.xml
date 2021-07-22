@@ -12,9 +12,11 @@
  		<typeAlias alias="BoardDto" type="com.example.jy.myboard.dto.BoardDto"/>
  		<typeAlias alias="PageDto" type="com.example.jy.myboard.dto.PageDto"/>
  		<typeAlias alias="SearchPageDto" type="com.example.jy.myboard.dto.SearchPageDto"/>		
+ 		<typeAlias alias="ReplyDto" type="com.example.jy.myboard.dto.ReplyDto"/>
  	</typeAliases>
  	
  	<mappers>
  		<mapper resource="boardMapper.xml"/>
+ 		<mapper resource="replyMapper.xml"/>
  	</mappers>
 </configuration>

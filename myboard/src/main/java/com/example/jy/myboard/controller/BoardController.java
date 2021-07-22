@@ -17,8 +17,10 @@ import com.example.jy.myboard.dao.BoardDao;
 import com.example.jy.myboard.dto.BoardDto;
 
 import com.example.jy.myboard.dto.PageMaker;
+import com.example.jy.myboard.dto.ReplyDto;
 import com.example.jy.myboard.dto.SearchPageDto;
 import com.example.jy.myboard.service.BoardServiceImpl;
+import com.example.jy.myboard.service.ReplyServiceImpl;
 
 
 @Controller
@@ -27,6 +29,8 @@ public class BoardController {
 	@Autowired
 	BoardServiceImpl service;
 	
+	@Autowired
+	ReplyServiceImpl replyService;
 	
 	@GetMapping(path="/writeview")
 	public String writeForm() {
@@ -42,7 +46,7 @@ public class BoardController {
 			}catch(Exception e){
 				System.out.println(e);
 			}
-		return "redirect:/";
+		return "redirect:/list";
 	}
 	
 	@GetMapping(path="/list")
@@ -60,6 +64,7 @@ public class BoardController {
 	public String read(BoardDto board,@ModelAttribute("searchPage")SearchPageDto page,Model model) throws Exception{
 		model.addAttribute("read",service.read(board.getBoardId()));
 		model.addAttribute("searchPage",page);
+		model.addAttribute("reply",replyService.getReplyList(board));
 		return "readview";
 	}
 	
@@ -88,6 +93,17 @@ public class BoardController {
 		redi.addAttribute("feild",page.getFeild());
 		redi.addAttribute("keyword",page.getKeyword());
 		return "redirect:/list";
+	}
+	
+	@PostMapping(path="/replywrite")
+	public String writeReply(ReplyDto reply,SearchPageDto page,RedirectAttributes redi) throws Exception{
+		replyService.addReply(reply);
+		redi.addAttribute("boardId",reply.getBoardId());
+		redi.addAttribute("page",page.getPage());
+		redi.addAttribute("offset",page.getOffset());
+		redi.addAttribute("feild",page.getFeild());
+		redi.addAttribute("keyword",page.getKeyword());
+		return "redirect:readview";
 	}
 	
 }

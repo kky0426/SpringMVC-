@@ -13,11 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.jy.myboard.config.root.ApplicationConfig;
 import com.example.jy.myboard.dao.BoardDaoImpl;
-
+import com.example.jy.myboard.dao.ReplyDaoImpl;
 import com.example.jy.myboard.dto.BoardDto;
+import com.example.jy.myboard.dto.ReplyDto;
 import com.example.jy.myboard.dto.SearchPageDto;
 
 
@@ -28,12 +30,12 @@ public class BeanTest {
 	
 	
 	@Autowired
-	BoardDaoImpl dao;
+	ReplyDaoImpl dao;
 	
 	@Test
+	@Transactional
 	public void beanTest() {
-		BoardDto board = dao.getBoardById(128);
-		assertEquals(128,board.getBoardId());
+	
 	}
 
 	

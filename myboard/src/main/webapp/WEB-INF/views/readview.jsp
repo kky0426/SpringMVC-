@@ -33,6 +33,13 @@
 						+"&feild=${searchPage.feild}"
 						+"&keyword=${searchPage.keyword}";
 		})
+		
+		var replyForm = $("form[name='replyForm']");
+		$(".replyWriteButton").on("click",function(){
+			replyForm.attr("action","replywrite");
+			replyForm.attr("method","post");
+			replyForm.submit();
+		});
 	})
 </script>
 	
@@ -87,12 +94,43 @@
 							</tr>		
 						</tbody>			
 					</table>
+				</form>
+				<div>
+					<button type="button" class="update_btn">수정</button>
+					<button type="button" class="delete_btn">삭제</button>
+					<button type="button" class="list_btn">목록</button>
+				</div>
+					
+				<form name="replyForm" method="post">
+					<input type="hidden" id="boardId" name="boardId" value="${read.boardId}"/>
+					<input type="hidden" id="page" name="page" value="${searchPage.page}"/>
+					<input type="hidden" id="offset" name="offset" value="${searchPage.offset}"/>
+					<input type="hidden" id="feild"  name="feild" value="${searchPage.feild}"/>
+					<input type="hidden" id="keyword" name="keyword" value="${searchPage.keyword}"/>
+					
 					<div>
-						<button type="button" class="update_btn">수정</button>
-						<button type="button" class="delete_btn">삭제</button>
-						<button type="button" class="list_btn">목록</button>
+						<label for="writer">댓글 작성자</label><input type="text" id="writer" name="writer"/>
+						<label for="content">댓글 내용</label><input type="text" id="content" name="content"/>
+					</div>
+					<div>
+						<button type="button" class="replyWriteButton">작성</button>
 					</div>
 				</form>
+				<!-- 댓글 -->
+				<div id="reply">
+					<ol class="replyList">
+						<c:forEach items="${reply}" var="replyList">
+							<li>
+								<p>
+									작성자 : ${replyList.writer}<br/>
+									작성 날짜 : <fmt:formatDate value="${read.date}" pattern="yyyy-MM-dd"/><br/>
+								</p>
+								<p>${replyList.content}</p>
+							</li>
+						</c:forEach>
+					</ol>
+				</div>
+
 			</section>
 			<hr />
 		</div>
