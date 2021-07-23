@@ -9,4 +9,10 @@ public interface ReplyDao {
 	public int insertReply(ReplyDto reply) throws Exception;
 	
 	public List<ReplyDto> getBoardReply(BoardDto board) throws Exception;
+	
+	public int deleteReply(ReplyDto reply) throws Exception;
+	
+	public int updateReply(ReplyDto reply) throws Exception;
+	
+	public ReplyDto getReplyOne(int replyId) throws Exception;
 }

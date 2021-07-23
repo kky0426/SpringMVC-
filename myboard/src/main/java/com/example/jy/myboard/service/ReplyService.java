@@ -9,4 +9,10 @@ public interface ReplyService {
 	public int addReply(ReplyDto reply) throws Exception;
 	
 	public List<ReplyDto> getReplyList(BoardDto board)throws Exception;
+	
+	public int delete(ReplyDto reply) throws Exception;
+	
+	public int update(ReplyDto reply) throws Exception;
+	
+	public ReplyDto getReply(int replyId) throws Exception;
 }

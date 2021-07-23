@@ -17,4 +17,25 @@
 		WHERE boardId=#{boardId}
 	</select>
 	
+	<update id="updateReply" parameterType="ReplyDto">
+		UPDATE reply SET content=#{content}
+		WHERE replyId=#{replyId}
+	</update> 
+	
+	<delete id="deleteReply" parameterType="ReplyDto">
+		DELETE FROM reply
+		WHERE replyId=#{replyId}
+	</delete>
+	
+	<select id="getReplyOne" resultType="ReplyDto">
+		SELECT boardId,
+				replyId,
+				content,
+				writer,
+				date
+		FROM reply
+		WHERE replyId=#{replyId}
+	</select>
+	
+	
 </mapper>

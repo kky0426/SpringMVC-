@@ -24,5 +24,20 @@ public class ReplyDaoImpl implements ReplyDao {
 	public List<ReplyDto> getBoardReply(BoardDto board) throws Exception{
 		return sqlSession.selectList("replyMapper.getBoardReply", board);
 	}
+
+	@Override
+	public int deleteReply(ReplyDto reply) throws Exception {
+		return sqlSession.delete("replyMapper.deleteReply",reply);
+	}
+
+	@Override
+	public int updateReply(ReplyDto reply) throws Exception {
+		return sqlSession.update("replyMapper.updateReply", reply);
+	}
+
+	@Override
+	public ReplyDto getReplyOne(int replyId) throws Exception {
+		return sqlSession.selectOne("replyMapper.getReplyOne",replyId);
+	}
 	
 }

@@ -24,5 +24,22 @@ public class ReplyServiceImpl implements ReplyService {
 	public List<ReplyDto> getReplyList(BoardDto board) throws Exception {
 		return dao.getBoardReply(board);
 	}
+
+	@Override
+	public int delete(ReplyDto reply) throws Exception {
+		return dao.deleteReply(reply);
+	}
+
+	@Override
+	public int update(ReplyDto reply) throws Exception {
+		return dao.updateReply(reply);
+		
+	}
+
+	@Override
+	public ReplyDto getReply(int replyId) throws Exception {
+		return dao.getReplyOne(replyId);
+	}
+	
 	
 }

@@ -106,4 +106,44 @@ public class BoardController {
 		return "redirect:readview";
 	}
 	
+	@PostMapping(path="updateReply")
+	public String updateReply(ReplyDto reply,SearchPageDto page,RedirectAttributes redi) throws Exception{
+		replyService.update(reply);
+		redi.addAttribute("boardId",reply.getBoardId());
+		redi.addAttribute("page",page.getPage());
+		redi.addAttribute("offset",page.getOffset());
+		redi.addAttribute("feild",page.getFeild());
+		redi.addAttribute("keyword",page.getKeyword());
+		
+		return "redirect:readview";
+	}
+	
+	@GetMapping(path="updateReplyView")
+	public String updateReplyView(ReplyDto reply,SearchPageDto page, Model model) throws Exception{
+		model.addAttribute("searchPage",page);
+		model.addAttribute("reply",replyService.getReply(reply.getReplyId()));
+		return "updateReplyView";
+	}
+	
+	
+	
+	@PostMapping(path="deleteReply")
+	public String deleteReply(ReplyDto reply,SearchPageDto page,RedirectAttributes redi) throws Exception{
+		replyService.delete(reply);
+		redi.addAttribute("boardId", reply.getBoardId());
+		redi.addAttribute("page", page.getPage());
+		redi.addAttribute("offset", page.getOffset());
+		redi.addAttribute("feild", page.getFeild());
+		redi.addAttribute("keyword", page.getKeyword());
+		return "redirect:readview";
+	}	
+	
+	@GetMapping(path="deleteReplyView")
+	public String deleteReplyView(ReplyDto reply,SearchPageDto page,Model model) throws Exception{
+		model.addAttribute("reply",replyService.getReply(reply.getReplyId()));
+		model.addAttribute("searchPage", page);
+		
+		return "deleteReplyView";
+		
+	}
 }

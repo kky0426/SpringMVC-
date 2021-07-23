@@ -34,8 +34,10 @@ public class BeanTest {
 	
 	@Test
 	@Transactional
-	public void beanTest() {
-	
+	public void beanTest() throws Exception{
+		ReplyDto re = dao.getReplyOne(1);
+		assertNotNull(re.getBoardId());
+		System.out.println(re);
 	}
 
 	
