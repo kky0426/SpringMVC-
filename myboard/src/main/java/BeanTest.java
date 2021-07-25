@@ -18,9 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.jy.myboard.config.root.ApplicationConfig;
 import com.example.jy.myboard.dao.BoardDaoImpl;
 import com.example.jy.myboard.dao.ReplyDaoImpl;
+import com.example.jy.myboard.dao.UserDaoImpl;
 import com.example.jy.myboard.dto.BoardDto;
 import com.example.jy.myboard.dto.ReplyDto;
 import com.example.jy.myboard.dto.SearchPageDto;
+import com.example.jy.myboard.dto.UserDto;
 
 
 @WebAppConfiguration
@@ -30,14 +32,14 @@ public class BeanTest {
 	
 	
 	@Autowired
-	ReplyDaoImpl dao;
+	UserDaoImpl dao;
 	
 	@Test
 	@Transactional
 	public void beanTest() throws Exception{
-		ReplyDto re = dao.getReplyOne(1);
-		assertNotNull(re.getBoardId());
-		System.out.println(re);
+		UserDto user=new UserDto();
+		user = dao.getUser("kky0426");
+		assertEquals(user.getUserName(), "준영");
 	}
 
 	
