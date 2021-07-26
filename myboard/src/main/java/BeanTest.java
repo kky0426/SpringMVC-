@@ -35,11 +35,13 @@ public class BeanTest {
 	UserDaoImpl dao;
 	
 	@Test
-	@Transactional
 	public void beanTest() throws Exception{
 		UserDto user=new UserDto();
 		user = dao.getUser("kky0426");
-		assertEquals(user.getUserName(), "준영");
+		user.setUserName("김준영");
+		dao.updateUser(user);
+		UserDto user1 = dao.getUser("kky0426");
+		assertEquals("김준영", user1.getUserName());
 	}
 
 	

@@ -5,6 +5,10 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<head>
+		<!-- 합쳐지고 최소화된 최신 CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<!-- 부가적인 테마 -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	 	<title>게시판</title>
 	 	<style type="text/css">
 	 		li {list-style:none; float:left; padding:6px;}
@@ -12,21 +16,19 @@
 	</head>
 
 	<body>
-		<div id="root">
+		<div class="container">
 			<header>
 				<h1> 게시판</h1>
 			</header>
 			<hr />
-			 
-			<nav>
-			  홈 - 글 목록
-			  <button type="button" onclick="location.href='writeview'">글 작성</button>
-			</nav>
+			<div>
+				<%@include file = "nav.jsp" %>
+			</div>
 			<hr />
 			
 			<section id="container">
 				<form role="form" method="get">				
-					<table>
+					<table class = "table table-hover">
 						<tr><th>번호</th><th>제목</th><th>작성자</th><th>등록일</th></tr>
 						
 						<c:forEach items="${list}" var = "list">
@@ -46,26 +48,31 @@
 						</c:forEach>					
 					</table>
 					
-					<div class="search">
-						<select name="feild">
-						   				
-							<option value="">----</option>
-							<option value="title">제목</option>
-							<option value="content">내용</option>
-							<option value="writerName">작성자</option>
-						</select>
-						<input type="text" name="keyword" id="keywordInput" value="${page.keyword}"/>
-						<button id="searchButton" type="submit">검색</button>
-				
+					<div class="search row">
+						<div class="col-xs-2 col-sm-2">						
+							<select name="feild" class="form_control">
+							   				
+								<option value="">----</option>
+								<option value="title">제목</option>
+								<option value="content">내용</option>
+								<option value="writerName">작성자</option>
+							</select>
+							<div class = "input-gruop">		
+								<input type="text" name="keyword" id="keywordInput" value="${page.keyword}" class="form-control"/>
+								<span class="input-group-btn">							
+									<button id="searchButton" type="submit" class="btn btn-default">검색</button>
+								</span>
+							</div>
+						</div>
 					</div>
 					
-					<div>
-						<ul>
+					<div class="col-md-offset-3">
+						<ul class="pogination">
 							<c:if test="${pageMaker.pre}">
 								<li><a href="list${pageMaker.makeSearch(pageMaker.startPage-1)}}">이전</a></li>
 							</c:if>
 							<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-								<li><a href="list${pageMaker.makeSearch(idx) }">${idx}</a></li>
+								<li> <a href="list${pageMaker.makeSearch(idx) }">${idx}</a></li>
 							</c:forEach>
 							<c:if test="${pageMaker.next && pageMaker.endPage>0}">
 								<li><a href="list${pageMaker.makeSearch(pageMaker.endPage+1)}">다음</a></li>

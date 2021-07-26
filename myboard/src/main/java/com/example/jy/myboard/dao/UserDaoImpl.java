@@ -26,5 +26,10 @@ public class UserDaoImpl implements UserDao {
 	public UserDto login(UserDto user) throws Exception {
 		return sqlSession.selectOne("userMapper.login", user);
 	}
+
+	@Override
+	public int updateUser(UserDto user) throws Exception {
+		return sqlSession.update("userMapper.updateUser", user);
+	}
 	
 }

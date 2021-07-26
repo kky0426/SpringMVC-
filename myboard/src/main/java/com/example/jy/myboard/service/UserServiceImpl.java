@@ -21,5 +21,10 @@ public class UserServiceImpl implements UserService {
 	public UserDto login(UserDto user) throws Exception {
 		return dao.login(user);
 	}
+
+	@Override
+	public void updateUser(UserDto user) throws Exception {
+		dao.updateUser(user);
+	}
 	
 }

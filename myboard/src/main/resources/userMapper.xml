@@ -14,9 +14,15 @@
 	</select>
 	
 	<select id="login" resultType="UserDto">
-		SELECT userId,userPass
+		SELECT userId,userPass,userName
 		FROM user
 		WHERE userId=#{userId} AND userPass=#{userPass}
 	</select>
 	
+	<update id="updateUser" parameterType="UserDto">
+		UPDATE user SET
+		userPass = #{userPass},
+		userName= #{userName}
+		WHERE userId=#{userId}
+	</update>
 </mapper>

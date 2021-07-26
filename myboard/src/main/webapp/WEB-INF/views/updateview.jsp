@@ -6,9 +6,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<title>게시판</title>
+	<!-- 합쳐지고 최소화된 최신 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<!-- 부가적인 테마 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<meta charset="UTF-8">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<title>게시판</title>
 </head>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -51,7 +55,11 @@
 		</header>
 		<hr/>
 		
-		<nav>홈 - 글작성</nav>
+	
+		<div>
+			<%@include file = "nav.jsp" %>
+		</div>
+		
 		<hr/>
 		
 		<section id="contaner">

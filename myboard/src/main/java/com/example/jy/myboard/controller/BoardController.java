@@ -37,6 +37,12 @@ public class BoardController {
 		return "writeview";
 	}
 	
+	@GetMapping(path="main")
+	public String home(){
+		return "main";
+	}
+
+	
 	@PostMapping(path="/write")
 	public String write(@RequestParam(name="title",required=true)String title,
 			@RequestParam(name="writer_name")String writerName,

@@ -13,6 +13,17 @@
 			location.href="logout";
 		})
 		
+		$("#regiserButton").on("click",function(){
+			location.href="register";
+		})
+		$("#listButton").on("click",function(){
+			location.href="list";
+		})
+		
+		$("#userUpdateButton").on("click",function(){
+			location.href="updateUserView";
+		})
+		
 	});
 </script>
 </head>
@@ -29,13 +40,15 @@
 			</div>
 			<div>
 				<button type="submit">로그인</button>
-				<button type="button">회원가입</button>
+				<button type="button" id="regiserButton">회원가입</button>
 			</div>
 		</c:if>
 		<c:if test="${user!=null}">
 			<div>
 				<p>${user.userId}님 환영합니다.</p>
+				<button id="listButton" type="button">글목록</button>
 				<button id="logoutButton" type="button">로그아웃</button>
+				<button id="userUpdateButton" type="button">회원정보수정</button>
 			</div>
 		</c:if>
 		<c:if test="${msg==false}">

@@ -3,6 +3,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 	<head>
+		<!-- 합쳐지고 최소화된 최신 CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<!-- 부가적인 테마 -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	 	<title>게시판</title>
 	 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	</head>
@@ -65,15 +69,14 @@
 	
 	<body>
 	
-		<div id="root">
+		<div class="container">
 			<header>
 				<h1> 게시판</h1>
 			</header>
 			<hr />
-			 
-			<nav>
-			  홈 - 글 상세
-			</nav>
+			<div>
+				<%@include file = "nav.jsp" %>
+			</div>
 			<button></button>
 			<hr />
 			
@@ -84,58 +87,36 @@
 					<input type="hidden" id="offset" name="offset" value="${searchPage.offset}"/>
 					<input type="hidden" id="feild"  name="feild" value="${searchPage.feild}"/>
 					<input type="hidden" id="keyword" name="keyword" value="${searchPage.keyword}"/>
-					<table>
-						<tbody>
-							<tr>
-								<td>
-									<label for="boardId">글 번호</label><input type="text" id="boardId" name="boardId" value="${read.boardId}"/>
-								</td>
-							</tr>	
-							<tr>
-								<td>
-									<label for="title">제목</label><input type="text" id="title" name="title" value="${read.title}"/>
-								</td>
-							</tr>	
-							<tr>
-								<td>
-									<label for="content">내용</label><textarea id="content" name="content"><c:out value="${read.content}" /></textarea>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<label for="writerName">작성자</label><input type="text" id="writerName" name="writerName" value="${read.writerName}" />
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<label for="date">작성날짜</label>
-									<fmt:formatDate value="${read.date}" pattern="yyyy-MM-dd"/>					
-								</td>
-							</tr>		
-						</tbody>			
-					</table>
-				</form>
+				</form>	
+			
+				<div class="form-group">			
+					<label for="boardId">글 번호</label>
+					<input type="text" id="boardId" name="boardId" value="${read.boardId}"/>
+				</div>
+				<div class="form-group">		
+					<label for="title" class="col-sm-2 conrtrol-label">제목</label>
+					<input type="text" class="form-control" id="title" name="title" value="${read.title}"/>
+				</div>
+				<div class="form-group">
+					<label for="content" class="col-sm-2 conrtrol-label">내용</label>
+					<textarea id="content" class="form-control"  name="content"><c:out value="${read.content}" /></textarea>
+				</div>
+				<div class="form-group">		
+					<label for="writerName" class="col-sm-2 conrtrol-label">작성자</label>
+					<input type="text" class="form-control"  id="writerName" name="writerName" value="${read.writerName}" />
+				</div>
+				<div class="form-group">		
+					<label for="date" class="col-sm-2 conrtrol-label">작성날짜</label>
+					<fmt:formatDate value="${read.date}" pattern="yyyy-MM-dd"/>					
+				</div>
+				
 				<div>
-					<button type="button" class="update_btn">수정</button>
-					<button type="button" class="delete_btn">삭제</button>
-					<button type="button" class="list_btn">목록</button>
+					<button type="button" class="update_btn btn btn-warning">수정</button>
+					<button type="button" class="delete_btn btn btn-danger">삭제</button>
+					<button type="button" class="list_btn btn btn-primary">목록</button>
 				</div>
 					
-				<form name="replyForm" method="post">
-					<input type="hidden" id="boardId" name="boardId" value="${read.boardId}"/>
-					<input type="hidden" id="page" name="page" value="${searchPage.page}"/>
-					<input type="hidden" id="offset" name="offset" value="${searchPage.offset}"/>
-					<input type="hidden" id="feild"  name="feild" value="${searchPage.feild}"/>
-					<input type="hidden" id="keyword" name="keyword" value="${searchPage.keyword}"/>
-					
-					<div>
-						<label for="writer">댓글 작성자</label><input type="text" id="writer" name="writer"/>
-						<label for="content">댓글 내용</label><input type="text" id="content" name="content"/>
-					</div>
-					<div>
-						<button type="button" class="replyWriteButton">작성</button>
-					</div>
-				</form>
+				
 				<!-- 댓글 -->
 				<div id="reply">
 					<ol class="replyList">
@@ -147,14 +128,38 @@
 								</p>
 								<p>${replyList.content}</p>
 								<div>
-									<button type="button" class ="updateReplyButton" data-replyId="${replyList.replyId}">수정</button>
-									<button type="button" class = "deleteReplyButton" data-replyId="${replyList.replyId}">삭제</button>
+									<button type="button" class ="updateReplyButton btn btn-warning" data-replyId="${replyList.replyId}">수정</button>
+									<button type="button" class = "deleteReplyButton btn btn-danger" data-replyId="${replyList.replyId}">삭제</button>
 								</div>
 							</li>
 						</c:forEach>
 					</ol>
 				</div>
-
+				
+				<form name="replyForm" method="post" class="form-horizontal">
+					<input type="hidden" id="boardId" name="boardId" value="${read.boardId}"/>
+					<input type="hidden" id="page" name="page" value="${searchPage.page}"/>
+					<input type="hidden" id="offset" name="offset" value="${searchPage.offset}"/>
+					<input type="hidden" id="feild"  name="feild" value="${searchPage.feild}"/>
+					<input type="hidden" id="keyword" name="keyword" value="${searchPage.keyword}"/>
+					
+					<div class="form-group">
+						<label for="writer" class="col-sm-2 control-label">댓글 작성자</label>
+						<div class="col-sm-10">
+							<input type="text"  class="form-control" id="writer" name="writer"/>
+						</div>
+						<label for="content" class="form-group">댓글 내용</label>
+						<div class="col-sm-10">
+							<input type="text"  class="form-control" id="content" name="content"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="button" class="replyWriteButton btn btn-success">작성</button>
+						</div>
+	
+					</div>
+				</form>
 			</section>
 			<hr />
 		</div>

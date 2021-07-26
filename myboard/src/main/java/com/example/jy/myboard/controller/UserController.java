@@ -26,8 +26,12 @@ public class UserController {
 
 	@PostMapping(path="register")
 	public String postRegister(UserDto user) throws Exception{
-		service.createUser(user);
-		return null;
+		try {
+			service.createUser(user);
+			return "main";
+		}catch(Exception e) {
+			return null;
+		}
 	}
 	
 	@PostMapping(path="login")
@@ -37,7 +41,7 @@ public class UserController {
 		
 		if(login==null) {
 			session.setAttribute("user", null);
-			redi.addAttribute("msg",false);		
+			redi.addFlashAttribute("msg",false);		
 		}else {
 			session.setAttribute("user", login);
 		}
@@ -49,6 +53,20 @@ public class UserController {
 	public String logout(HttpSession sesstion) throws Exception{
 		sesstion.invalidate();
 		return "redirect:/";
+	}
+	
+	@GetMapping(path="updateUserView")
+	public String updateUserView() throws Exception{
+		return "updateUserView";
+	}
+	
+	@PostMapping(path="updateUser")
+	public String updateUser(UserDto user,HttpSession session) throws Exception{
+		
+		service.updateUser(user);
+		session.invalidate();
+		return "redirect:/";
+	
 	}
 }
 

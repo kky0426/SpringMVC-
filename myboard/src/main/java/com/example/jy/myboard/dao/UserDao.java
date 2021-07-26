@@ -9,4 +9,6 @@ public interface UserDao {
 	
 	public UserDto login(UserDto user) throws Exception;
 	
+	public int updateUser(UserDto user) throws Exception;
+	
 }
