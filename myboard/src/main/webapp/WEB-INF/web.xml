@@ -12,7 +12,9 @@ version="3.1">
   </context-param>
   <context-param>
 	<param-name>contextConfigLocation</param-name>
-	<param-value>com.example.jy.myboard.config.root.ApplicationConfig
+	<param-value>
+		com.example.jy.myboard.config.root.ApplicationConfig
+		/WEB-INF/spring/spring-security.xml
 	</param-value>
   </context-param>
   <listener>
@@ -28,7 +30,9 @@ version="3.1">
  	</init-param>
  	<init-param>
  		<param-name>contextConfigLocation</param-name>
- 		<param-value>com.example.jy.myboard.config.web.WebMvcContextConfiguration</param-value>
+ 		<param-value>
+ 			com.example.jy.myboard.config.web.WebMvcContextConfiguration
+ 		</param-value>
  	</init-param>
  	<load-on-startup>1</load-on-startup>
   </servlet>

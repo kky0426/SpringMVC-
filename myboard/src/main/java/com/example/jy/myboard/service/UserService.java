@@ -9,4 +9,10 @@ public interface UserService {
 	public UserDto login(UserDto user) throws Exception;
 	
 	public void updateUser(UserDto user) throws Exception;
+	
+	public void deleteUser(UserDto user) throws Exception;
+	
+	public int checkPass(UserDto user) throws Exception;
+	
+	public int checkId(UserDto user) throws Exception;
 }

@@ -3,6 +3,7 @@ package com.example.jy.myboard.controller;
 
 
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +26,8 @@ import com.example.jy.myboard.service.ReplyServiceImpl;
 
 @Controller
 public class BoardController {
+	
+	
 	
 	@Autowired
 	BoardServiceImpl service;

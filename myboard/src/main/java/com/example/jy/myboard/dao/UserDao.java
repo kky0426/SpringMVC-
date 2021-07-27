@@ -11,4 +11,9 @@ public interface UserDao {
 	
 	public int updateUser(UserDto user) throws Exception;
 	
+	public int deleteUser(UserDto user) throws Exception;
+	
+	public int checkPass(UserDto user) throws Exception;
+	
+	public int checkId(UserDto user) throws Exception;
 }

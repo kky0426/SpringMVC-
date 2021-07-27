@@ -7,15 +7,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$(".cancel").on("click",function(){
-			location.href="login";
+			location.href="main";
 		})
 		
 		$("#submit").on("click",function(){
+			
 			if($("#userId").val()==""){
 				alert("아이디를 입력해주세요");
 				$("#userId").focus();
@@ -31,12 +33,27 @@
 				$("#userName").focus();
 				return false;
 			}
+			$.ajax({
+				url : "checkId",
+				type : "POST",
+				dataType : "json",
+				data : $("#registerForm").serializeArray(),
+				success : function(data){
+					if (data==0){
+						$("#registerForm").submit();
+					}else{
+						alert("중복된 아이디가 있습니다.");
+						return;
+					}
+				}
+			
+			})
 		})
 	});
 </script>
 <body>
 	<section id="container">
-		<form action="register" method="post">
+		<form name="registerForm" action="register" method="post" id="registerForm">
 			<div class = "form-gruop has-feedback">
 				<label class="control-label" for="userId">아이디</label>
 				<input class="form-control" type="text" id="userId" name="userId"/>
@@ -49,11 +66,11 @@
 				<label class="control-label" for="userName">이름</label>
 				<input class="form-control" type="text" id="userName" name="userName"/>
 			</div>
-			<div class="form-group has-feedback">
-				<button class="button button-success" type="submit" id="submit">가입</button>
-				<button class="cancel button button-danger" type="button">취소</button>
-			</div>
 		</form>
+		<div>
+			<button class="button button-success" type="button" id="submit">가입</button>
+			<button class="cancel button button-danger" type="button">취소</button>
+		</div>
 	</section>
 </body>
 </html>
