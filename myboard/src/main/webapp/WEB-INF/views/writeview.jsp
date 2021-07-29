@@ -43,10 +43,11 @@
 		<%@include file = "nav.jsp" %>
 	</div>
 	<c:if test="${user.userId !=null}">
-		<form name="writeForm">
+		<form name="writeForm" method="post" action="write" enctype="multipart/form-data">
 			제목 : <input type=text name="title" class="chk" title="제목을 입력하세요"><br>
-			이름 : <input type=text name="writer_name" class="chk" title="이름을 입력하세요"><br>
+			이름 : <input type=text name="writerName" class="chk" title="이름을 입력하세요"><br>
 			내용 : <input type=text name="content" class="chk" title="내용을 입력하세요"><br>
+			<input type="file" name="file">
 			<button type="button" class="write_btn">작성</button>
 		</form>
 	</c:if>

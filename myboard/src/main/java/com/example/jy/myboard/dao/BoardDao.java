@@ -1,6 +1,7 @@
 package com.example.jy.myboard.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -21,5 +22,5 @@ public interface BoardDao {
 	
 	List<BoardDto> getBoardPage(SearchPageDto page);
 	
-	
+	int insertFile(Map<String,Object> map) throws Exception;
 }

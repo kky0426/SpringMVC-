@@ -35,7 +35,7 @@ public class PageDto {
 		}
 	}
 	public int getRowS() {
-		rowS = ((page-1)*offset)+1;
+		rowS = ((page-1)*offset);
 		return rowS;
 	}
 	public void setRowS(int rowS) {

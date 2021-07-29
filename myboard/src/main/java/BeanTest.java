@@ -15,6 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartResolver;
 
 import com.example.jy.myboard.config.root.ApplicationConfig;
 import com.example.jy.myboard.controller.UserController;
@@ -35,17 +36,17 @@ public class BeanTest {
 	
 	
 	@Autowired
-	UserController cont;
+	BoardDaoImpl dao;
 	
 	@Test
-	public void beanTest() throws Exception{
-		UserDto user= new UserDto();
-		user.setUserId("1231234");
-		user.setUserPass("1231234");
-		user.setUserName("1231234");
-		String result=cont.postRegister(user);
-		assertEquals("main", result);
-		
+	public void beanTest() {
+		BoardDto board = new BoardDto();
+		board.setContent("123");
+		board.setTitle("asdf");
+		board.setWriterName("123123");
+		dao.insertBoard(board);
+		//assertNotNull(board.getBoardId());
+		assertEquals(130, board.getBoardId());
 	}
 
 	

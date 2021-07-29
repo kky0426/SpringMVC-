@@ -3,8 +3,11 @@
 <mapper namespace="boardMapper">
 	
 	<insert id="insertBoard" parameterType="BoardDto">
-		INSERT INTO board (title,content,writer_name)
+		INSERT INTO board (title,content,writerName)
 		VALUES (#{title},#{content},#{writerName})
+		<selectKey keyProperty="boardId" resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 	
 	<select id="getBoardById" parameterType="int" resultType="BoardDto">
@@ -55,5 +58,22 @@
 			<if test="feild =='writerName'.toString()">AND writerName LIKE CONCAT('%',#{keyword},'%')</if>
 		</if>
 	</sql>
+	
+	<insert id="insertFile" parameterType="hashMap">
+		INSERT INTO file(
+			boardId,
+			orgFileName,
+			storedFileName,
+			fileSize
+		)VALUES(
+				#{boardId},
+				#{orgFileName},
+				#{storedFileName},
+				#{fileSize}
+			)
+	</insert>
+	
+
+	
 </mapper>
 

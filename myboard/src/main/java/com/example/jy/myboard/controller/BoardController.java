@@ -3,6 +3,7 @@ package com.example.jy.myboard.controller;
 
 
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.jy.myboard.dao.BoardDao;
@@ -28,7 +30,7 @@ import com.example.jy.myboard.service.ReplyServiceImpl;
 public class BoardController {
 	
 	
-	
+	final static Logger logger = LoggerFactory.getLogger(BoardController.class);
 	@Autowired
 	BoardServiceImpl service;
 	
@@ -47,19 +49,16 @@ public class BoardController {
 
 	
 	@PostMapping(path="/write")
-	public String write(@RequestParam(name="title",required=true)String title,
-			@RequestParam(name="writer_name")String writerName,
-			@RequestParam(name="content")String content,ModelMap modelMap) {
-			try {
-				service.write(title,writerName,content);
-			}catch(Exception e){
-				System.out.println(e);
-			}
+	public String write(BoardDto board,MultipartHttpServletRequest request) throws Exception {
+		logger.info("write");
+		service.write(board,request);
 		return "redirect:/list";
 	}
 	
 	@GetMapping(path="/list")
 	public String list(Model model,@ModelAttribute("searchPage")SearchPageDto page) throws Exception{
+		logger.info("list");
+		logger.info("page rowS={}", page.getRowS());
 		model.addAttribute("list",service.boardList(page));
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setPage(page);

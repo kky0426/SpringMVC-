@@ -20,5 +20,6 @@
  		<mapper resource="boardMapper.xml"/>
  		<mapper resource="replyMapper.xml"/>
  		<mapper resource="userMapper.xml"/>
+ 		<mapper resource="fileMapper.xml"/>
  	</mappers>
 </configuration>

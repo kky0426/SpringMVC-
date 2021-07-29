@@ -2,13 +2,15 @@ package com.example.jy.myboard.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.example.jy.myboard.dto.BoardDto;
 
 import com.example.jy.myboard.dto.SearchPageDto;
 
 public interface BoardService {
 	
-	public void write(String title,String name,String content) throws Exception;
+	public void write(BoardDto board,MultipartHttpServletRequest request) throws Exception;
 
 	public List<BoardDto> boardList(SearchPageDto page) throws Exception;
 	

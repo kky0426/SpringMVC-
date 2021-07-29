@@ -1,6 +1,7 @@
 package com.example.jy.myboard.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,11 @@ public class BoardDaoImpl implements BoardDao {
 	public List<BoardDto> getBoardPage(SearchPageDto page){
 		return sqlSession.selectList("boardMapper.getBoardPage", page);
 	}
+
+	@Override
+	public int insertFile(Map<String, Object> map) throws Exception {
+		return sqlSession.insert("boardMapper.insertFile",map);
+	}
+	
 
 }
