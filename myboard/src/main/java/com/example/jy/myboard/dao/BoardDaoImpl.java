@@ -50,6 +50,16 @@ public class BoardDaoImpl implements BoardDao {
 	public int insertFile(Map<String, Object> map) throws Exception {
 		return sqlSession.insert("boardMapper.insertFile",map);
 	}
+
+	@Override
+	public List<Map<String, Object>> getFileList(int boardId) throws Exception {
+		return sqlSession.selectList("boardMapper.getFileList",boardId);
+	}
+
+	@Override
+	public Map<String, Object> getFileInfo(Map<String,Object> map) throws Exception {
+		return sqlSession.selectOne("boardMapper.getFileInfo",map);
+	}
 	
 
 }

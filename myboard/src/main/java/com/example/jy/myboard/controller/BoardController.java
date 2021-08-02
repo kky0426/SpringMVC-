@@ -3,6 +3,12 @@ package com.example.jy.myboard.controller;
 
 
 
+import java.io.File;
+import java.net.URLEncoder;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.*;
@@ -12,6 +18,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -73,6 +80,7 @@ public class BoardController {
 		model.addAttribute("read",service.read(board.getBoardId()));
 		model.addAttribute("searchPage",page);
 		model.addAttribute("reply",replyService.getReplyList(board));
+		model.addAttribute("file",service.getFileList(board.getBoardId()));
 		return "readview";
 	}
 	
@@ -151,7 +159,22 @@ public class BoardController {
 		model.addAttribute("reply",replyService.getReply(reply.getReplyId()));
 		model.addAttribute("searchPage", page);
 		
-		return "deleteReplyView";
+		return "deleteReplyView";	
+	}
+	
+	@RequestMapping(path="fileDown")
+	public void fileDown(@RequestParam Map<String,Object> map, HttpServletResponse response) throws Exception{
+		Map<String,Object> resultMap = service.getFileInfo(map);
+		String storedFileName = (String) resultMap.get("storedFileName");
+		String orgFileName = (String) resultMap.get("orgFileName");
 		
+		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("C:\\myboard\\file\\"+storedFileName));
+		
+		response.setContentLength(fileByte.length);
+		response.setContentType("application/octet-stream");
+		response.setHeader("Content-Disposition","attachment; fileName=\""+URLEncoder.encode(orgFileName,"UTF-8")+"\";");
+		response.getOutputStream().write(fileByte);
+		response.getOutputStream().flush();
+		response.getOutputStream().close();
 	}
 }

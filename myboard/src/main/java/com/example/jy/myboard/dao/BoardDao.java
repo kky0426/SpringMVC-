@@ -23,4 +23,8 @@ public interface BoardDao {
 	List<BoardDto> getBoardPage(SearchPageDto page);
 	
 	int insertFile(Map<String,Object> map) throws Exception;
+	
+	public List<Map<String,Object>> getFileList(int boardId) throws Exception;
+
+	public Map<String,Object> getFileInfo(Map<String,Object> map) throws Exception;
 }

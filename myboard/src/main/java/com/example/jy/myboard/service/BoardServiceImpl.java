@@ -58,6 +58,16 @@ public class BoardServiceImpl implements BoardService{
 	public int count(SearchPageDto page) throws Exception {
 		return dao.boardCount(page);
 	}
+
+	@Override
+	public List<Map<String, Object>> getFileList(int boardId) throws Exception {
+		return dao.getFileList(boardId);
+	}
+
+	@Override
+	public Map<String, Object> getFileInfo(Map<String,Object> map) throws Exception {
+		return dao.getFileInfo(map);
+	}
 	
 	
 	

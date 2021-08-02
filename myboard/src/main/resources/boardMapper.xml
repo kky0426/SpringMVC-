@@ -73,7 +73,21 @@
 			)
 	</insert>
 	
+	<select id="getFileList" parameterType="int" resultType="hashMap">
+		SELECT fileId,
+				orgFileName,
+				ROUND(fileSize/1024,1) as fileSize
+		FROM file
+		WHERE boardId = #{boardId}
+		AND del_gb='N'
+	</select>
 
-	
+	<select id="getFileInfo" parameterType="hashMap" resultType="hashMap">
+		SELECT
+			storedFileName,
+			orgFileName
+		FROM file
+		WHERE fileId=#{fileId}
+	</select>
 </mapper>
 
