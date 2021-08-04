@@ -1,5 +1,10 @@
 package com.example.jy.myboard.config.root;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.GeneralSecurityException;
+import java.text.ParseException;
+
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -52,4 +57,5 @@ public class MyBatisConfig {
 	public PlatformTransactionManager transactionManager() {
 		return new DataSourceTransactionManager(dataSource());
 	}
+	
 }

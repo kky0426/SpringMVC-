@@ -8,6 +8,7 @@ public class BoardDto {
 	private String writerName;
 	private String content;
 	private Date date;
+	private int hit;
 	
 	public BoardDto() {}
 	
@@ -45,6 +46,14 @@ public class BoardDto {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public int getHit() {
+		return hit;
+	}
+
+	public void setHit(int hit) {
+		this.hit = hit;
 	}
 	
 	

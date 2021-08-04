@@ -5,6 +5,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.jy.myboard.dto.BoardDto;
@@ -15,7 +20,10 @@ import com.example.jy.myboard.dao.BoardDaoImpl;
 
 @Service
 public class BoardServiceImpl implements BoardService{
-		
+	
+	@Autowired
+	PlatformTransactionManager transactionManager;
+	
 	@Autowired
 	private BoardDaoImpl dao;
 	@Autowired
@@ -31,10 +39,16 @@ public class BoardServiceImpl implements BoardService{
 		}
 	}
 	
+	
+	@Transactional
 	@Override
 	public BoardDto read(int id) throws Exception {
+	
+		dao.boardHit(id);
 		return dao.getBoardById(id);
+		
 	}
+
 
 	
 	@Override
@@ -68,6 +82,8 @@ public class BoardServiceImpl implements BoardService{
 	public Map<String, Object> getFileInfo(Map<String,Object> map) throws Exception {
 		return dao.getFileInfo(map);
 	}
+
+
 	
 	
 	

@@ -60,6 +60,11 @@ public class BoardDaoImpl implements BoardDao {
 	public Map<String, Object> getFileInfo(Map<String,Object> map) throws Exception {
 		return sqlSession.selectOne("boardMapper.getFileInfo",map);
 	}
-	
 
+	@Override
+	public int boardHit(int boardId) throws Exception {
+		return sqlSession.update("boardMapper.boardHit", boardId);
+	}
+	
+	
 }

@@ -29,7 +29,7 @@
 			<section id="container">
 				<form role="form" method="get">				
 					<table class = "table table-hover">
-						<tr><th>번호</th><th>제목</th><th>작성자</th><th>등록일</th></tr>
+						<tr><th>번호</th><th>제목</th><th>작성자</th><th>등록일</th><th>조회수</th></tr>
 						
 						<c:forEach items="${list}" var = "list">
 							<tr>
@@ -44,6 +44,7 @@
 								</td>
 								<td><c:out value="${list.writerName}" /></td>
 								<td><fmt:formatDate value="${list.date}" pattern="yyyy-MM-dd"/></td>
+								<td><c:out value="${list.hit}"></c:out></td>
 							</tr>
 						</c:forEach>					
 					</table>

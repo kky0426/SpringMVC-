@@ -16,6 +16,7 @@
 				,content
 				,writerName
 				,date
+				,hit
 		FROM board
 		WHERE boardId=#{boardId}
 	</select>
@@ -43,7 +44,8 @@
 				title,
 				content,
 				writerName,
-				date
+				date,
+				hit
 		FROM board
 		WHERE boardId>0
 		<include refid="search"></include>
@@ -89,5 +91,11 @@
 		FROM file
 		WHERE fileId=#{fileId}
 	</select>
+	
+	<update id ="boardHit" parameterType="int">
+		UPDATE board SET
+		hit=hit+1
+		WHERE boardId=#{boardId}
+	</update>
 </mapper>
 

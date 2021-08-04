@@ -29,7 +29,9 @@ import com.example.jy.myboard.dto.BoardDto;
 import com.example.jy.myboard.dto.PageMaker;
 import com.example.jy.myboard.dto.ReplyDto;
 import com.example.jy.myboard.dto.SearchPageDto;
+import com.example.jy.myboard.service.BoardService;
 import com.example.jy.myboard.service.BoardServiceImpl;
+import com.example.jy.myboard.service.ReplyService;
 import com.example.jy.myboard.service.ReplyServiceImpl;
 
 
@@ -38,11 +40,13 @@ public class BoardController {
 	
 	
 	final static Logger logger = LoggerFactory.getLogger(BoardController.class);
-	@Autowired
-	BoardServiceImpl service;
 	
 	@Autowired
-	ReplyServiceImpl replyService;
+	ReplyService replyService;
+	
+	@Autowired
+	BoardService service;
+	
 	
 	@GetMapping(path="/writeview")
 	public String writeForm() {
